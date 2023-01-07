@@ -10,6 +10,7 @@ public class RemoteConfigProvider
 
     private Firebase.DependencyStatus _dependencyStatus = Firebase.DependencyStatus.UnavailableOther;
     private string _configUrl;
+
     public void Init()
     {
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
@@ -31,10 +32,7 @@ public class RemoteConfigProvider
     {
         Dictionary<string, object> defaults = new Dictionary<string, object>();
 
-        defaults.Add("config_test_string", "default local string");
-        defaults.Add("config_test_int", 1);
-        defaults.Add("config_test_float", 1.0);
-        defaults.Add("config_test_bool", false);
+        defaults.Add("URL", "");
 
         Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults)
           .ContinueWithOnMainThread(task => FetchDataAsync());

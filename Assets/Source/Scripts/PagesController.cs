@@ -3,6 +3,7 @@ using UnityEngine;
 public class PagesController : MonoBehaviour
 {
     [SerializeField] private UrlProvider _urlProvider;
+    [SerializeField] private GameObject _noConnectionPanel;
 
     private WebViewController _webViewController;
 
@@ -17,7 +18,7 @@ public class PagesController : MonoBehaviour
 
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
-            // Show connection error window
+            _noConnectionPanel.SetActive(true);
             return;
         }
 
