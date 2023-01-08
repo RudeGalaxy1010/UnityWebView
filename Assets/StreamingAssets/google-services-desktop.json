@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "737434887265",
-    "project_id": "webview-a1577",
-    "storage_bucket": "webview-a1577.appspot.com"
+    "project_number": "494330363446",
+    "project_id": "kakufo-bdc15",
+    "storage_bucket": "kakufo-bdc15.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:737434887265:android:448a79d06ac99f982e3620",
+        "mobilesdk_app_id": "1:494330363446:android:09fa167fbe0f75c78aa297",
         "android_client_info": {
-          "package_name": "com.antonkarev.webview"
+          "package_name": "sento.fonbet.ap"
         }
       },
       "oauth_client": [
         {
-          "client_id": "737434887265-qloqod11ik6ugph62plct6n1lkvuo6k1.apps.googleusercontent.com",
+          "client_id": "494330363446-4p78fntbumc9k51rpfnqsd7di9aro6l6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDjHl64N_AtS2t4IJWBsvzqwwZeX3eU6-8"
+          "current_key": "AIzaSyA-XRYH-vsaYqakn7hqPZlX6NlhElMStOA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "737434887265-qloqod11ik6ugph62plct6n1lkvuo6k1.apps.googleusercontent.com",
+              "client_id": "494330363446-4p78fntbumc9k51rpfnqsd7di9aro6l6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

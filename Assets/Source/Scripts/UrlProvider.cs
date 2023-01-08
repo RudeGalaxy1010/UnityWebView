@@ -17,9 +17,6 @@ public class UrlProvider : MonoBehaviour
 
     public string GetUrl()
     {
-        // TODO: remove in build
-        PlayerPrefs.DeleteAll();
-
         string url;
 
         if (_urlSaver.HasSavedUrl)

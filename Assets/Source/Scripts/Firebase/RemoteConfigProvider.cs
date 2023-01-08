@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class RemoteConfigProvider
 {
-    private const string UrlPropertyName = "URL";
+    private const string UrlPropertyName = "url";
 
     private Firebase.DependencyStatus _dependencyStatus = Firebase.DependencyStatus.UnavailableOther;
     private string _configUrl;
@@ -32,7 +32,7 @@ public class RemoteConfigProvider
     {
         Dictionary<string, object> defaults = new Dictionary<string, object>();
 
-        defaults.Add("URL", "");
+        defaults.Add(UrlPropertyName, "");
 
         Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults)
           .ContinueWithOnMainThread(task => FetchDataAsync());
