@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PagesController : MonoBehaviour
 {
+    private const string MockSceneName = "MockScene";
+
     [SerializeField] private UrlProvider _urlProvider;
     [SerializeField] private GameObject _noConnectionPanel;
 
@@ -36,7 +39,7 @@ public class PagesController : MonoBehaviour
         }
         else
         {
-            // Show mock
+            SceneManager.LoadScene(MockSceneName);
         }
     }
 }
