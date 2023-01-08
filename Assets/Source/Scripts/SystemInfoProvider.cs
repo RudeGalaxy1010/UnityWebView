@@ -15,7 +15,7 @@ public class SystemInfoProvider : MonoBehaviour
         _pluginInstance.CallStatic("ReceiveActivity", unityActivity);
     }
 
-    public bool IsEmulator => _pluginInstance.Call<bool>("IsEmulator");
+    public bool IsEmulator => _pluginInstance.Call<bool>("IsEmulator") || SystemInfo.deviceModel.ToLower().Contains("google") || SystemInfo.deviceName.ToLower().Contains("google");
     public bool HasSimCard => _pluginInstance.Call<bool>("HasSimCard");
     public string MobileOperatorName => _pluginInstance.Call<string>("GetOperatorName");
 }
