@@ -13,7 +13,11 @@ public class UrlProvider : MonoBehaviour
     {
         _urlSaver = new UrlSaver();
         _remoteConfigProvider = new RemoteConfigProvider();
-        _remoteConfigProvider.Init();
+
+        if (IsUrlLocal == false)
+        {
+            _remoteConfigProvider.Init();
+        }
     }
 
     public string GetUrl()

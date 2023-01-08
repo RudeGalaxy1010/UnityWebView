@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,10 +7,12 @@ public class Starter : MonoBehaviour
 {
     private const string MockSceneName = "MockScene";
 
+    [SerializeField] private TMP_Text _text;
     [SerializeField] private UrlProvider _urlProvider;
     [SerializeField] private GameObject _noConnectionPanel;
 
     private WebViewController _webViewController;
+    private SystemInfoProvider _systemInfoProvider;
 
     private IEnumerator Start()
     {
@@ -21,6 +24,7 @@ public class Starter : MonoBehaviour
         else
         {
             _webViewController = new WebViewController();
+            _systemInfoProvider = new SystemInfoProvider();
             yield return new WaitUntil(() => _urlProvider.LinkSetup || _urlProvider.LinkNotLoaded);
 
             OpenContentPage();
@@ -52,9 +56,6 @@ public class Starter : MonoBehaviour
 
     private bool IsEmulator()
     {
-        AndroidJavaClass osBuild;
-        osBuild = new AndroidJavaClass("android.os.Build");
-        string fingerPrint = osBuild.GetStatic<string>("FINGERPRINT");
-        return fingerPrint.Contains("generic");
+        return _systemInfoProvider.IsEmulator;
     }
 }
