@@ -47,6 +47,7 @@ public class WebViewController
                 {
                     Debug.LogFormat("Fail to close WebView. Error:{0}", error);
                 }
+                ShowUrlFullScreen(_url);
                 break;
             case GpmWebViewCallback.CallbackType.PageLoad:
                 if (string.IsNullOrEmpty(data) == false)
