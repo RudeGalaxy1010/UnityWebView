@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class WebViewController
 {
+    private string _url;
+
     // FullScreen
     public void ShowUrlFullScreen(string url)
     {
+        _url = url;
         GpmWebView.ShowUrl(url,
             new GpmWebViewRequest.Configuration()
             {

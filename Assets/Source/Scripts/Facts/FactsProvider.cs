@@ -12,7 +12,7 @@ public class FactsProvider : MonoBehaviour
     {
         _facts = new List<string>();
         TextAsset dictionaryTextFile = Resources.Load<TextAsset>(FactsFilePath);
-        _facts = dictionaryTextFile.text.Split(".\n").Select(w => w).ToList();
+        _facts = dictionaryTextFile.text.Split(".\r\n").Select(w => w).ToList();
     }
 
     public string GetRandomFact()

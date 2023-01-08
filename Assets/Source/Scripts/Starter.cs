@@ -22,6 +22,10 @@ public class Starter : MonoBehaviour
 
     public void OpenContentPage()
     {
+#if UNITY_EDITOR
+        SceneManager.LoadScene(MockSceneName);
+        return;
+#endif
         string url = _urlProvider.GetUrl();
 
         if (Application.internetReachability == NetworkReachability.NotReachable)
