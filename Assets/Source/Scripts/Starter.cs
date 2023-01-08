@@ -13,11 +13,19 @@ public class Starter : MonoBehaviour
 
     private IEnumerator Start()
     {
-        _webViewController = new WebViewController();
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            _noConnectionPanel.SetActive(true);
+            yield return null;
+        }
+        else
+        {
+            _webViewController = new WebViewController();
 
-        yield return new WaitUntil(() => _urlProvider.LinkSetup);
+            yield return new WaitUntil(() => _urlProvider.LinkSetup);
 
-        OpenContentPage();
+            OpenContentPage();
+        }
     }
 
     public void OpenContentPage()
@@ -27,12 +35,6 @@ public class Starter : MonoBehaviour
         return;
 #endif
         string url = _urlProvider.GetUrl();
-
-        if (Application.internetReachability == NetworkReachability.NotReachable)
-        {
-            _noConnectionPanel.SetActive(true);
-            return;
-        }
 
         // Got url from local storage
         if (_urlProvider.IsUrlLocal == true)
