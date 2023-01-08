@@ -1,7 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PagesController : MonoBehaviour
+public class Starter : MonoBehaviour
 {
     private const string MockSceneName = "MockScene";
 
@@ -10,9 +11,13 @@ public class PagesController : MonoBehaviour
 
     private WebViewController _webViewController;
 
-    private void Start()
+    private IEnumerator Start()
     {
         _webViewController = new WebViewController();
+
+        yield return new WaitUntil(() => _urlProvider.LinkSetup);
+
+        OpenContentPage();
     }
 
     public void OpenContentPage()

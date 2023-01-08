@@ -5,9 +5,10 @@ public class UrlProvider : MonoBehaviour
     private RemoteConfigProvider _remoteConfigProvider;
     private UrlSaver _urlSaver;
 
+    public bool LinkSetup => !string.IsNullOrEmpty(GetUrl());
     public bool IsUrlLocal => _urlSaver.HasSavedUrl;
 
-    private void Start()
+    private void Awake()
     {
         _urlSaver = new UrlSaver();
         _remoteConfigProvider = new RemoteConfigProvider();
