@@ -21,8 +21,7 @@ public class Starter : MonoBehaviour
         else
         {
             _webViewController = new WebViewController();
-
-            yield return new WaitUntil(() => _urlProvider.LinkSetup);
+            yield return new WaitUntil(() => _urlProvider.LinkSetup || _urlProvider.LinkNotLoaded);
 
             OpenContentPage();
         }
@@ -30,11 +29,14 @@ public class Starter : MonoBehaviour
 
     public void OpenContentPage()
     {
-#if UNITY_EDITOR
-        SceneManager.LoadScene(MockSceneName);
-        return;
-#endif
         string url = _urlProvider.GetUrl();
+
+        if (Application.isEditor || _urlProvider.IsUrlLocal == false
+            || string.IsNullOrEmpty(url) || IsEmulator())
+        {
+            SceneManager.LoadScene(MockSceneName);
+            return;
+        }
 
         // Got url from local storage
         if (_urlProvider.IsUrlLocal == true)
@@ -44,13 +46,15 @@ public class Starter : MonoBehaviour
         }
 
         // Got url from remote storage
-        if (string.IsNullOrEmpty(url) == false)
-        {
-            _webViewController.ShowUrlFullScreen(url);
-        }
-        else
-        {
-            SceneManager.LoadScene(MockSceneName);
-        }
+        _webViewController.ShowUrlFullScreen(url);
+        return;
+    }
+
+    private bool IsEmulator()
+    {
+        AndroidJavaClass osBuild;
+        osBuild = new AndroidJavaClass("android.os.Build");
+        string fingerPrint = osBuild.GetStatic<string>("FINGERPRINT");
+        return fingerPrint.Contains("generic");
     }
 }

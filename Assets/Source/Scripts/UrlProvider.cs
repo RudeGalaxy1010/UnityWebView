@@ -5,7 +5,8 @@ public class UrlProvider : MonoBehaviour
     private RemoteConfigProvider _remoteConfigProvider;
     private UrlSaver _urlSaver;
 
-    public bool LinkSetup => !string.IsNullOrEmpty(GetUrl());
+    public bool LinkSetup => IsUrlLocal || _remoteConfigProvider.IsLinkLoaded;
+    public bool LinkNotLoaded => !IsUrlLocal && _remoteConfigProvider.IsLoadingFailed;
     public bool IsUrlLocal => _urlSaver.HasSavedUrl;
 
     private void Awake()
@@ -19,7 +20,7 @@ public class UrlProvider : MonoBehaviour
     {
         string url;
 
-        if (_urlSaver.HasSavedUrl)
+        if (IsUrlLocal)
         {
             url = _urlSaver.LoadUrl();
         }

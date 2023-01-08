@@ -11,6 +11,12 @@ public class RemoteConfigProvider
     private Firebase.DependencyStatus _dependencyStatus = Firebase.DependencyStatus.UnavailableOther;
     private string _configUrl;
 
+    private bool _isLinkLoaded = false;
+    private bool _isLoadingFailed = false;
+
+    public bool IsLinkLoaded => _isLinkLoaded;
+    public bool IsLoadingFailed => _isLoadingFailed;
+
     public void Init()
     {
         Firebase.FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
@@ -35,7 +41,10 @@ public class RemoteConfigProvider
         defaults.Add(UrlPropertyName, "");
 
         Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults)
-          .ContinueWithOnMainThread(task => FetchDataAsync());
+          .ContinueWithOnMainThread(task =>
+          {
+              FetchDataAsync();
+          });
     }
 
     public string GetConfigUrl()
@@ -54,12 +63,15 @@ public class RemoteConfigProvider
     void FetchComplete(Task fetchTask)
     {
         var info = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.Info;
+
         switch (info.LastFetchStatus)
         {
             case Firebase.RemoteConfig.LastFetchStatus.Success:
                 Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.ActivateAsync()
-                .ContinueWithOnMainThread(task => { _configUrl = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(UrlPropertyName).StringValue; });
-
+                .ContinueWithOnMainThread(task => { 
+                    _configUrl = Firebase.RemoteConfig.FirebaseRemoteConfig.DefaultInstance.GetValue(UrlPropertyName).StringValue;
+                    _isLinkLoaded = true;
+                });
                 break;
             case Firebase.RemoteConfig.LastFetchStatus.Failure:
                 switch (info.LastFetchFailureReason)
@@ -69,6 +81,7 @@ public class RemoteConfigProvider
                     case Firebase.RemoteConfig.FetchFailureReason.Throttled:
                         break;
                 }
+                _isLoadingFailed = true;
                 break;
             case Firebase.RemoteConfig.LastFetchStatus.Pending:
                 break;

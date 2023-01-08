@@ -823,6 +823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f2511e88509904490ac968532b587b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _text: {fileID: 0}
   _urlProvider: {fileID: 2110933382}
   _noConnectionPanel: {fileID: 616844321}
 --- !u!1 &2110933381
